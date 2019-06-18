@@ -56,6 +56,7 @@ $(DST)/aliases.conf: NEWSINDEX
 
 pagesaliases: $(DST)/styles \
 	$(DST)/files \
+	$(DST)/scripts \
 	$(DST)/coq-workshop/files \
 	$(DST)/coq-workshop/2009/cfp/index.html
 
@@ -66,6 +67,9 @@ $(DST)/files:
 
 $(DST)/styles:
 	ln -snf ../styles $@
+
+$(DST)/scripts:
+	ln -snf ../scripts $@
 
 $(DST)/coq-workshop/files: 
 	mkdir -p $(dir $@) && ln -snf ../files $@
@@ -123,4 +127,4 @@ printenv:
 run: aliases
 	@echo "Starting a local web server for test"
 	@echo "It is accessible at: http://localhost:8000"
-	cd $(DST) && (python3 -m http.server --bind localhost 8000 || python -m SimpleHTTPServer 8000)
+	cd $(DST) && (python3 ../srv/server.py)
